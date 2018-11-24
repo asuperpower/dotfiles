@@ -1,0 +1,18 @@
+# asuperpower's dotfiles
+* This is the configuration files for my system, which runs i3wm-gaps, polybar, rofi, pywal and compton - the standard stuff.
+* Welcome to any constructive criticism or suggestions
+
+## Screenshot
+![alt text](https://i.imgur.com/N7Ra3Ki.png)
+
+## i3 Window Manager (gaps fork)
+### Notes
+* If you use this config, just realise that the keybindings are changed to allow for vim-style keybindings
+* Ranger floating doesn't work yet
+### Features
+* Can select screenshot and it saves to clipboard
+* Launches applications in certain workspaces on startup
+* Steam optimisations for i3 (found on the net)
+* Keybind to start Windows VM
+* Spotify controls keybinds using playerctl
+
