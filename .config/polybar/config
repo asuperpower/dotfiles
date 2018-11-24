@@ -1,0 +1,610 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;
+;==========================================================
+
+[colors]
+;background = ${xrdb:color0:#222}
+;background = #222
+background-alt = #444
+;foreground = ${xrdb:color7:#222}
+;foreground = #dfdfdf
+;foreground-alt = #555
+;primary = #ffb52a
+;secondary = #e60053
+;alert = #bd2c40
+
+;transparency
+background = #00000000
+
+;background = ${xrdb:color0:#222}
+foreground = ${xrdb:color6:#222}
+foreground-alt = ${xrdb:color7:#222}
+primary = ${xrdb:color1:#222}
+secondary = ${xrdb:color2:#222}
+alert = ${xrdb:color3:#222}
+
+[bar/bottom]
+bottom=true
+enable-ipc = true
+;monitor = ${env:MONITOR:HDMI-1}
+width = 100%
+height = 27
+;offset-x =; 0%
+;offset-y = 1%
+radius = 6.0
+fixed-center = false
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #f00
+border-size = 4
+border-color = #00000000
+
+padding-left = 0
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 2
+
+;general
+font-0 = DejaVuSans:pixelsize=10;1
+font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-2 = siji:pixelsize=10;1
+;fontAwesome
+font-3 = Font Awesome5Free:pixelsize=10;3
+font-4 = Font Awesome5Free Solid:pixelsize=10;3
+font-5 = Font Awesome5Brands:pixelsize=10;3
+font-6 = FontAwesome:pixelsize = 9
+;other
+font- 7= DejaVu:size=8;1
+font- 8= DejaVu:size=8;1
+
+;modules-left = bspwm i3
+modules-left = i3
+;modules-center = spotify previous playpause next
+modules-center = spotify
+modules-right = filesystem  cpu-multi2 memory  cpu-temperature gpu1-temperature gpu2-temperature date
+tray-position = right
+tray-padding = 2
+;tray-transparent = true
+;tray-background = #0063ff
+
+;wm-restack = bspwm
+;wm-restack = i3
+
+;override-redirect = true
+
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
+
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+;[module/previous]
+;type = custom/script
+;interval = 86400
+;format = "%{T3}<label>"
+;format-padding = 5
+;; Previous song icon
+;exec = echo ""
+;format-underline = #1db954
+;line-size = 1
+;click-left = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
+
+;[module/next]
+;type = custom/script
+;interval = 86400
+;format = "%{T3}<label>"
+;format-padding = 5
+;; Next song icon
+;exec = echo ""
+;format-underline = #1db954
+;line-size = 1
+;click-left = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
+
+;[module/playpause]
+;type = custom/ipc
+;; Default
+;hook-0 = echo ""
+;; Playing
+;hook-1 = echo ""
+;; Paused
+;hook-2 = echo ""
+;initial = 1
+;format-underline = #1db954
+;line-size = 1
+;click-left = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+
+;[module/spotify]
+;type = custom/ipc
+;hook-0 = echo ""
+;warning - dot added to line below to make scripts into .scripts
+;hook-1 = python3  ~/.scripts/spotify/spotify_status.py
+;initial = 1
+;format-padding = 4
+;format-underline = #1db954
+;line-size = 1
+
+[module/spotify]
+type = custom/script
+interval = 1
+format-prefix = " "
+format = <label>
+exec = python ~/.scripts/spotify/spotify_status.py -f '{artist}: {song}'
+format-underline = #1db954
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-prefix-underline = ${colors.secondary}
+
+label-layout = %layout%
+label-layout-underline = ${colors.secondary}
+
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-background = ${colors.secondary}
+label-indicator-underline = ${colors.secondary}
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /
+
+label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.foreground-alt}
+
+[module/bspwm]
+type = internal/bspwm
+
+label-focused = %index%
+label-focused-background = ${colors.background-alt}
+label-focused-underline= ${colors.primary}
+label-focused-padding = 2
+
+label-occupied = %index%
+label-occupied-padding = 2
+
+label-urgent = %index%!
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+label-empty = %index%
+label-empty-foreground = ${colors.foreground-alt}
+label-empty-padding = 2
+
+; Separator in between workspaces
+; label-separator = |
+
+[module/i3]
+type = internal/i3
+; Separator in between workspaces
+; label-separator = |
+fuzzy-match = true
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-5 = 6;
+ws-icon-default = 
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+; Only show workspaces on the same output as the bar
+;pin-workspaces = true
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %icon%
+label-focused-background = ${module/bspwm.label-focused-background}
+label-focused-underline = ${module/bspwm.label-focused-underline}
+label-focused-padding = ${module/bspwm.label-focused-padding}
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %icon%
+label-unfocused-padding = ${module/bspwm.label-occupied-padding}
+
+; visible = Active workspace on unfocused monitor
+label-visible = %icon%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %icon%
+label-urgent-background = ${module/bspwm.label-urgent-background}
+label-urgent-padding = ${module/bspwm.label-urgent-padding}
+
+[module/mpd]
+type = internal/mpd
+format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+
+label-song-maxlen = 25
+label-song-ellipsis = true
+
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+format = <label> <bar-load>
+label = %percentage%%
+
+bar-load-width = 10
+bar-load-foreground-0 = ${xrdb:color6:#222}
+bar-load-foreground-1 = ${xrdb:color6:#222}
+bar-load-foreground-2 = ${xrdb:color6:#222}
+bar-load-foreground-3 = ${xrdb:color6:#222}
+bar-load-indicator = ■
+bar-load-indicator-font = 7
+bar-load-indicator-foreground = ${xrdb:color6:#222}
+bar-load-fill = ■
+bar-load-fill-font = 7
+bar-load-empty = □
+bar-load-empty-font = 7
+bar-load-empty-foreground = ${xrdb:color6:#222}
+
+[module/cpu-multi]
+type = internal/cpu
+interval = 0.5
+
+format = <ramp-coreload>
+label = %percentage-cores% - %percentage%%
+
+ramp-coreload-0 = ▁
+ramp-coreload-0-foreground = ${xrdb:color6:#222}
+ramp-coreload-0-font = 8
+ramp-coreload-1 = ▂
+ramp-coreload-1-foreground =${xrdb:color6:#222}
+ramp-coreload-1-font = 8
+ramp-coreload-2 = ▃
+ramp-coreload-2-foreground = ${xrdb:color6:#222}
+ramp-coreload-3 = ▄
+ramp-coreload-3-foreground = ${xrdb:color6:#222}
+ramp-coreload-4 = ▅
+ramp-coreload-4-foreground = ${xrdb:color6:#222}
+ramp-coreload-5 = ▆
+ramp-coreload-5-foreground = ${xrdb:color6:#222}
+ramp-coreload-6 = ▇
+ramp-coreload-6-foreground = ${xrdb:color6:#222}
+ramp-coreload-7 = █
+ramp-coreload-7-foreground = ${xrdb:color6:#222}
+
+[module/cpu-multi2]
+type = internal/cpu
+interval = 1.5
+
+format = <label> <ramp-coreload>
+
+label = CPU
+label-font = 3
+label-foreground = #99
+
+ramp-coreload-0 = ▁
+ramp-coreload-0-font = 2
+ramp-coreload-0-foreground = ${colors.foreground}
+ramp-coreload-1 = ▂
+ramp-coreload-1-font = 2
+ramp-coreload-1-foreground = ${colors.foreground}
+ramp-coreload-2 = ▃
+ramp-coreload-2-font = 2
+ramp-coreload-2-foreground = ${colors.foreground}
+ramp-coreload-3 = ▄
+ramp-coreload-3-font = 2
+ramp-coreload-3-foreground = ${colors.foreground-alt}
+ramp-coreload-4 = ▅
+ramp-coreload-4-font = 2
+ramp-coreload-4-foreground = ${colors.foreground-alt}
+ramp-coreload-5 = ▆
+ramp-coreload-5-font = 2
+ramp-coreload-5-foreground = ${colors.foreground-alt}
+ramp-coreload-6 = ▇
+ramp-coreload-6-font = 2
+ramp-coreload-6-foreground = ${colors.foreground-alt}
+ramp-coreload-7 = █
+ramp-coreload-7-font = 2
+ramp-coreload-7-foreground = ${colors.alert}
+
+; vim:ft=dosini
+
+[module/memory]
+type = internal/memory
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 3
+
+; Available tags:
+;   <label> (default)
+;   <bar-used>
+;   <bar-free>
+;   <ramp-used>
+;   <ramp-free>
+;   <bar-swap-used> (unreleased)
+;   <bar-swap-free> (unreleased)
+;   <ramp-swap-used> (unreleased)
+;   <ramp-swap-free> (unreleased)
+format = <label> <bar-used>
+;format = <bar-used>
+
+; Available tokens:
+;   %percentage_used% (default)
+;   %percentage_free%
+;   %gb_used%
+;   %gb_free%
+;   %gb_total%
+;   %mb_used%
+;   %mb_free%
+;   %mb_total%
+;   %percentage_swap_used%
+;   %percentage_swap_free%
+;   %mb_swap_total%
+;   %mb_swap_free%
+;   %mb_swap_used%
+;   %gb_swap_total%
+;   %gb_swap_free%
+;   %gb_swap_used%
+
+label = %gb_used%
+
+; Only applies if <bar-used> is used
+bar-used-indicator =
+bar-used-width = 8
+bar-used-foreground-0 = ${xrdb:color6:#222}
+bar-used-foreground-1 = ${xrdb:color6:#222}
+bar-used-foreground-2 = ${xrdb:color6:#222}
+bar-used-foreground-3 = ${xrdb:color6:#222}
+bar-used-fill = ■
+bar-used-empty = □
+bar-used-empty-foreground = ${xrdb:color6:#222}
+
+[module/wlan]
+type = internal/network
+interface = wlp39s0
+interval = 3.0
+
+format-connected = <ramp-signal> <label-connected>
+format-connected-underline = #9f78e1
+label-connected = %essid%
+
+format-disconnected =
+;format-disconnected = <label-disconnected>
+;format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = %ifname% disconnected
+;label-disconnected-foreground = ${colors.foreground-alt}
+
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+ramp-signal-foreground = ${colors.foreground-alt}
+
+[module/eth]
+type = internal/network
+interface = vnet0
+interval = 3.0
+
+format-connected-underline = #55aa55
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.foreground-alt}
+label-connected = %local_ip%
+
+format-disconnected =
+;format-disconnected = <label-disconnected>
+;format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = %ifname% disconnected
+;label-disconnected-foreground = ${colors.foreground-alt}
+
+[module/date]
+type = internal/date
+interval = 5
+
+date =
+date-alt = " %Y-%m-%d"
+
+time = %H:%M
+time-alt = %H:%M:%S
+
+format-prefix = 
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #0a6cf5
+
+label = %date% %time%
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume = <label-volume> <bar-volume>
+label-volume = VOL %percentage%%
+label-volume-foreground = ${root.foreground}
+
+label-muted = 🔇 muted
+label-muted-foreground = #666
+
+bar-volume-width = 10
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground-alt}
+
+[module/alsa]
+type = internal/alsa
+
+format-volume = <label-volume> <bar-volume>
+label-volume = VOL
+label-volume-foreground = ${root.foreground}
+
+format-muted-prefix = " "
+format-muted-foreground = ${colors.foreground-alt}
+label-muted = sound muted
+
+bar-volume-width = 10
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground-alt}
+
+[module/cpu-temperature]
+type = internal/temperature
+thermal-zone = 0
+hwmon-path = /sys/devices/platform/nct6775.656/hwmon/hwmon3/temp2_input
+warn-temperature = 75
+
+format = <ramp> <label>
+format-underline = #f50a4d
+format-warn = <ramp> <label-warn>
+format-warn-underline = ${self.format-underline}
+
+label = CPU %temperature-c%
+label-warn = CPU %temperature-c%
+label-warn-foreground = ${colors.secondary}
+label-warn-background = #990000
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = ${colors.foreground-alt}
+
+[module/gpu1-temperature]
+type = internal/temperature
+thermal-zone = 0
+hwmon-path = /sys/devices/pci0000:00/0000:00:03.1/0000:2d:00.0/hwmon/hwmon0/temp1_input
+warn-temperature = 75
+
+format = <ramp> <label>
+format-underline = #f50a4d
+format-warn = <ramp> <label-warn>
+format-warn-underline = ${self.format-underline}
+
+label =  GPU: %temperature-c%
+label-warn =  GPU: %temperature-c%
+label-warn-foreground = ${colors.secondary}
+label-warn-background = #990000
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = ${colors.foreground-alt}
+
+[module/gpu2-temperature]
+type = internal/temperature
+thermal-zone = 0
+hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp2_input
+warn-temperature = 75
+
+format = <ramp> <label>
+format-underline = #f50a4d
+format-warn = <ramp> <label-warn>
+format-warn-underline = ${self.format-underline}
+
+label =  GPU: %temperature-c%
+label-warn =  GPU: %temperature-c%
+label-warn-foreground = ${colors.secondary}
+label-warn-background = #990000
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = ${colors.foreground-alt}
+
+[module/powermenu]
+type = custom/menu
+
+expand-right = true
+
+format-spacing = 1
+
+label-open = 
+label-open-foreground = ${colors.secondary}
+label-close =  cancel
+label-close-foreground = ${colors.secondary}
+label-separator = |
+label-separator-foreground = ${colors.foreground-alt}
+
+menu-0-0 = reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = power off
+menu-0-1-exec = menu-open-2
+
+menu-1-0 = cancel
+menu-1-0-exec = menu-open-0
+menu-1-1 = reboot
+menu-1-1-exec = sudo reboot
+
+menu-2-0 = power off
+menu-2-0-exec = sudo poweroff
+menu-2-1 = cancel
+menu-2-1-exec = menu-open-0
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+; vim:ft=dosini

@@ -1,0 +1,12 @@
+URxvt.depth: 32
+!urxvt*transparent: true
+!urxvt*shading: 60
+!urxvt*blurRadius: 3
+urxvt*scrollBar:false
+!URxvt*font:	xft:mono:medium:size=10
+!URxvt*font: xft:DejaVu Sans Mono:size=10
+!URxvt.font:     xft:bitstream vera sans mono:size=9:antialias=true
+!URxvt.boldFont: xft:bitstream vera sans mono:bold:size=9:antialias=true
+!URxvt.font:	xft:Cantarell:light:size=9:antialias=true
+URxvt.font:	xft:SourceCodePro-ExtraLight:size=9:antialias=true
+URxvt.boldFont: xft:SourceCodePro-Bold:size=9:antialias=true
