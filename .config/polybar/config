@@ -215,6 +215,7 @@ ws-icon-2 = 3;
 ws-icon-3 = 4;
 ws-icon-4 = 5;
 ws-icon-5 = 6;
+ws-icon-6 = 7;
 ws-icon-default = 
 format = <label-state> <label-mode>
 index-sort = true
@@ -309,13 +310,13 @@ ramp-coreload-7-foreground = ${xrdb:color6:#222}
 
 [module/cpu-multi2]
 type = internal/cpu
-interval = 1.5
+interval = 1
 
 format = <label> <ramp-coreload>
 
-label = CPU
+label = CPU: %percentage%%
 label-font = 3
-label-foreground = #99
+label-foreground = ${colors.foreground}
 
 ramp-coreload-0 = ▁
 ramp-coreload-0-font = 2

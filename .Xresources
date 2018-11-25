@@ -1,6 +1,6 @@
 URxvt.depth: 32
 !urxvt*transparent: true
-!urxvt*shading: 60
+!urxvt*shading: 50
 !urxvt*blurRadius: 3
 urxvt*scrollBar:false
 !URxvt*font:	xft:mono:medium:size=10

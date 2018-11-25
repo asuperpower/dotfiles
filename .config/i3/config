@@ -27,7 +27,7 @@ font pango:Cantarell Light 9
 # font, it doesn’t scale on retina/hidpi displays.
 
 # Launch wal
-exec_always wal -a "40" -i "/home/asuperpower/Pictures/Wallpaper"
+exec_always wal -a "60" -i "/home/asuperpower/Pictures/Wallpaper"
 
 # Gaps
 # magic working script
@@ -58,7 +58,7 @@ bindsym $mod+Return exec $TERMINAL
 bindsym $mod+Shift+q kill
 
 #Lock workspace
-bindsym $mod+l "exec i3lock"
+bindsym $mod+Shift+l "exec i3lock"
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec rofi -show run
@@ -233,6 +233,7 @@ mode "move" {
 
 bindsym $mod+r mode "resize"
 
+# VM Bind
 bindsym $mod+Shift+F12 exec "urxvt -e sudo virsh start win10"
 
 ### Extra Stuff ###
@@ -270,3 +271,4 @@ for_window [class="discord"] move container to workspace 4
 for_window [class="Spotify"] move container to workspace 5
 for_window [class="Chromium"] move container to workspace 1
 for_window [class="^Steam$"] move container to workspace 6
+for_window [class="Dota 2"] move container to workspace 7
