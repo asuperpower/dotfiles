@@ -147,7 +147,7 @@ or other application using the libvirt API.
   </devices>
   <qemu:commandline>
     <qemu:arg value='-object'/>
-    <qemu:arg value='input-linux,id=mouse1,evdev=/dev/input/by-id/usb-SteelSeries_Rival_Gaming_Mouse-if01-event-mouse'/>
+    <qemu:arg value='input-linux,id=mouse1,evdev=/dev/input/by-id/usb-Microsoft_Microsoft_5-Button_Mouse_with_IntelliEye_TM_-event-mouse'/>
     <qemu:arg value='-object'/>
     <qemu:arg value='input-linux,id=kbd1,evdev=/dev/input/by-id/usb-04d9_daskeyboard-event-kbd,grab_all=on,repeat=on'/>
     <qemu:env name='QEMU_AUDIO_DRV' value='pa'/>
