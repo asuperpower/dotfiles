@@ -5,7 +5,7 @@
 ## Screenshot
 ![alt text](https://i.imgur.com/N7Ra3Ki.png)
 
-## i3 Window Manager (gaps fork)
+## i3 Window Manager Config Info (gaps fork)
 ### Notes
 * If you use this config, just realise that the keybindings are changed to allow for vim-style keybindings
 * Ranger floating doesn't work yet
