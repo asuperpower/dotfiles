@@ -5,11 +5,14 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+# For private bashrc
+source .bashrc_private
+
 # alias'
 alias ls='ls --color=auto'
 alias upgrade='sudo pacman -Syu'
 alias please='sudo $(history -p !!)'
-
+alias lyrics='clyrics'
 #dotfiles git sync alias
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias sudotfiles='sudo /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=/'
@@ -32,6 +35,7 @@ alias conf="cd ~/.config/"
 alias config="cd ~/.config/"
 alias bashrc="vim ~/.bashrc"
 alias i3conf="vim ~/.config/i3/config"
+alias i3config="vim ~/.config/i3/config"
 
 # mv, rm, cp
 alias mv='mv -v'
