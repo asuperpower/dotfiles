@@ -27,7 +27,7 @@ font pango:Cantarell Light 9
 # font, it doesn’t scale on retina/hidpi displays.
 
 # Launch wal
-exec_always wal -a "60" -i "/home/asuperpower/Pictures/Wallpaper"
+exec_always wal -a "80" -i "/home/asuperpower/Pictures/Wallpaper"
 
 # Gaps
 # magic working script
@@ -41,12 +41,16 @@ exec compton --config /home/asuperpower/.config/compton.conf
 # Launch spotify listener for polybar
 exec ~/.scripts/spotify/launchlistener.sh
 
+exec_always ~/.screenlayout/desktop1-amdgpu.sh
+
 # Launch other applications
-exec --no-startup-id i3-msg 'workspace 1; exec /usr/bin/chromium'
+exec --no-startup-id i3-msg 'workspace 1; exec /usr/bin/firefox'
 #exec --no-startup-id i3-msg 'workspace 2; exec /usr/bin/urxvt'
+exec --no-startup-id i3-msg 'workspace 2; exec /usr/bin/android-studio'
 exec --no-startup-id i3-msg 'workspace 4; exec /usr/bin/discord'
 exec --no-startup-id i3-msg 'workspace 5; exec /usr/bin/spotify'
 exec --no-startup-id i3-msg 'workspace 6; exec /usr/bin/steam'
+exec --no-startup-id i3-msg 'workspace 8; exec urxvt -e cmus'
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -58,7 +62,7 @@ bindsym $mod+Return exec $TERMINAL
 bindsym $mod+Shift+q kill
 
 #Lock workspace
-bindsym $mod+Shift+l "exec i3lock"
+bindsym $mod+Control+l "exec i3lock"
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec rofi -show run
@@ -129,6 +133,26 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
+set $ws11 "11"
+set $ws12 "12"
+set $ws13 "13"
+set $ws14 "14"
+
+# Define windows for workspaces
+workspace $ws1 output DisplayPort-1
+workspace $ws2 output DisplayPort-1
+workspace $ws3 output DisplayPort-1
+workspace $ws4 output DisplayPort-1
+workspace $ws5 output DisplayPort-1
+workspace $ws6 output DisplayPort-1
+workspace $ws7 output DisplayPort-1
+workspace $ws8 output DisplayPort-1
+workspace $ws9 output DisplayPort-1
+workspace $ws10 output DisplayPort-1
+workspace $ws11 output HDMI-A-0
+workspace $ws12 output HDMI-A-0
+workspace $ws13 output HDMI-A-0
+workspace $ws14 output HDMI-A-0
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -141,6 +165,10 @@ bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
+bindsym $mod+F1 workspace $ws11
+bindsym $mod+F2 workspace $ws12
+bindsym $mod+F3 workspace $ws13
+bindsym $mod+F4 workspace $ws14
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -153,6 +181,14 @@ bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
+bindsym $mod+Shift+F1 move container to workspace $ws11
+bindsym $mod+Shift+F2 move container to workspace $ws12
+bindsym $mod+Shift+F3 move container to workspace $ws13
+bindsym $mod+Shift+F4 move container to workspace $ws14
+
+# move workspace to other screen
+bindsym $mod+grave move workspace to output right
+
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -269,6 +305,6 @@ bindsym $mod+shift+x [instance="^float$" class="(?i)urxvt"] exec urxvt -name flo
 # Workspace fixes
 for_window [class="discord"] move container to workspace 4
 for_window [class="Spotify"] move container to workspace 5
-for_window [class="Chromium"] move container to workspace 1
+for_window [class="Firefox"] move container to workspace 1
 for_window [class="^Steam$"] move container to workspace 6
 for_window [class="Dota 2"] move container to workspace 7
