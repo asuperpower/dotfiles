@@ -17,7 +17,7 @@ alias lyrics='clyrics'
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias sudotfiles='sudo /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=/'
 alias gc='git clone'
-alias aur='git clone'
+#alias aur='git clone'
 alias .aur='cd ~/.aur'
 
 # alias from paulirish dotfiles
@@ -42,6 +42,22 @@ alias mv='mv -v'
 alias rm='rm -i -v'
 alias cp='cp -v'
 alias chx='chmod +x'
+
+# function to mkdir and cd to it
+mcd()
+{
+	mkdir -p -- "$1" &&
+	cd -P -- "$1"
+}
+
+# function for aur stuff
+aur()
+{
+	cd ~/.aur &&
+	git clone aur://"$1" &&
+	cd -P -- "$1" &&
+	vim PKGBUILD
+}
 
 # reload xresources
 alias xr='xrdb ~/.Xresources'
