@@ -2,13 +2,10 @@
 # 	asuperpower i3config file
 # 	Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-# Should you change your keyboard layout some time, delete
-# this file and re-run i3-config-wizard(1).
-#
-
 set $mod Mod4
 
-set $TERMINAL "urxvt"
+set $TERMINAL 	"urxvt"
+set $TERMINAL_NOQUOTE	urxvt
 set $HOME	/home/asuperpower/
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -18,16 +15,6 @@ font pango:Cantarell Light 9
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
-
-# Before i3 v4.8, we used to recommend this one as the default:
-# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-# The font above is very space-efficient, that is, it looks good, sharp and
-# clear in small sizes. However, its unicode glyph coverage is limited, the old
-# X core fonts rendering does not support right-to-left and this being a bitmap
-# font, it doesn’t scale on retina/hidpi displays.
-
-# Launch wal
-exec_always wal -a "80" -i "/home/asuperpower/Pictures/Wallpaper"
 
 # Gaps
 # magic working script
@@ -46,8 +33,8 @@ exec_always ~/.screenlayout/desktop1-amdgpu.sh
 # Launch other applications
 exec --no-startup-id i3-msg 'workspace 1; exec /usr/bin/firefox'
 #exec --no-startup-id i3-msg 'workspace 2; exec /usr/bin/urxvt'
-exec --no-startup-id i3-msg 'workspace 2; exec /usr/bin/android-studio'
-exec --no-startup-id i3-msg 'workspace 4; exec /usr/bin/discord'
+#exec --no-startup-id i3-msg 'workspace 2; exec /usr/bin/android-studio'
+exec --no-startup-id i3-msg 'workspace 7; exec /usr/bin/discord'
 exec --no-startup-id i3-msg 'workspace 5; exec /usr/bin/spotify'
 exec --no-startup-id i3-msg 'workspace 6; exec /usr/bin/steam'
 exec --no-startup-id i3-msg 'workspace 8; exec urxvt -e cmus'
@@ -283,27 +270,42 @@ bindsym $mod+F6 exec "playerctl play-pause"
 bindsym $mod+F7 exec "playerctl next"
 
 #Steam Support
-#for_window [class="^Steam$" title="^Friends$"] floating enable
-for_window [class="^Steam$" title="Steam - News"] floating enable
-#for_window [class="^Steam$" title=".* - Chat"] floating enable
-for_window [class="^Steam$" title="^Settings$"] floating enable
-for_window [class="^Steam$" title=".* - event started"] floating enable
-for_window [class="^Steam$" title=".* CD key"] floating enable
-for_window [class="^Steam$" title="^Steam - Self Updater$"] floating enable
-for_window [class="^Steam$" title="^Screenshot Uploader$"] floating enable
+#for_window [class="^Steam$" title="^Friends$"]			floating enable
+for_window [class="^Steam$" title="Steam - News"]		floating enable
+#for_window [class="^Steam$" title=".* - Chat"]			floating enable
+for_window [class="^Steam$" title="^Settings$"]			floating enable
+for_window [class="^Steam$" title=".* - event started"]		floating enable
+for_window [class="^Steam$" title=".* CD key"]			floating enable
+for_window [class="^Steam$" title="^Steam - Self Updater$"]	floating enable
+for_window [class="^Steam$" title="^Screenshot Uploader$"]	floating enable
 for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable
-for_window [title="^Steam Keyboard$"] floating enable
+for_window [title="^Steam Keyboard$"]				floating enable
 
 #Audio Manager
 for_window [class="^Pavucontrol$"] floating enable
 
 #Ranger floating
-for_window [instance="^float$" class="(?i)urxvt"] floating enable, move scratchpad, sticky enable, move absolute position 1434px 800px
-bindsym $mod+shift+x [instance="^float$" class="(?i)urxvt"] exec urxvt -name float -e ranger
+#for_window [instance="^float$" class="(?i)urxvt"] floating enable, move scratchpad, sticky enable, move absolute position 1434px 800px
+#bindsym $mod+shift+x [instance="^float$" class="(?i)urxvt"] exec urxvt -name float -e ranger
 
+# Scratchpad terminal for calculations (python)
+exec_always "$TERMINAL_NOQUOTE -name calc -e python"
+for_window [instance="calc"] floating enable
+for_window [instance="calc"] resize set 800 600
+for_window [instance="calc"] move scratchpad
+
+bindsym $mod+shift+Tab [instance="calc"] scratchpad show; [instance="calc"] move position center
+
+# Scratchpad terminal for file browsing (ranger)
+exec_always "$TERMINAL_NOQUOTE -name files -e ranger"
+for_window [instance="files"] floating enable
+for_window [instance="files"] resize set 800 600
+for_window [instance="files"] move scratchpad
+
+bindsym $mod+Tab [instance="files"] scratchpad show; [instance="files"] move position center
 
 # Workspace fixes
-for_window [class="discord"] move container to workspace 4
+for_window [class="discord"] move container to workspace 7
 for_window [class="Spotify"] move container to workspace 5
 for_window [class="Firefox"] move container to workspace 1
 for_window [class="^Steam$"] move container to workspace 6
