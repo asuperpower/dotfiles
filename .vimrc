@@ -31,6 +31,9 @@ call plug#begin('~/.vim/plugged')
 " Using plug for wal compatibility (colour theme switching)
 Plug 'dylanaraps/wal.vim'
 
+" Using youcompleteme (autocompletion)
+Plug 'Valloric/YouCompleteMe'
+
 colorscheme wal
 
 call plug#end()

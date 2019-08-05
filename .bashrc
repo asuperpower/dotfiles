@@ -59,6 +59,12 @@ aur()
 	vim PKGBUILD
 }
 
+# function to install python packages
+py()
+{	
+	pip install --user "$1"
+}
+
 # reload xresources
 alias xr='xrdb ~/.Xresources'
 

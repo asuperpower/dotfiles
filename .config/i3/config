@@ -7,6 +7,7 @@ set $mod Mod4
 set $TERMINAL 	"urxvt"
 set $TERMINAL_NOQUOTE	urxvt
 set $HOME	/home/asuperpower/
+set $TRANSPARENCY 	70
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -281,6 +282,9 @@ for_window [class="^Steam$" title="^Screenshot Uploader$"]	floating enable
 for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable
 for_window [title="^Steam Keyboard$"]				floating enable
 
+# Execute wal desktop wallpaper & colour theme creator
+exec_always --no-startup-id wal -a $TRANSPARENCY -i /home/asuperpower/Pictures/Wallpaper/
+
 #Audio Manager
 for_window [class="^Pavucontrol$"] floating enable
 
@@ -295,6 +299,14 @@ for_window [instance="calc"] resize set 800 600
 for_window [instance="calc"] move scratchpad
 
 bindsym $mod+shift+Tab [instance="calc"] scratchpad show; [instance="calc"] move position center
+
+# Scratchpad for audio mixer
+#exec_always "$TERMINAL_NOQUOTE -name audio -e python"
+#for_window [instance="audio"] floating enable
+#for_window [instance="audio"] resize set 800 600
+#for_window [instance="audio"] move scratchpad
+#bindsym $mod+shift+Tab [instance="audio"] scratchpad show; [instance="audio"] move position center
+
 
 # Scratchpad terminal for file browsing (ranger)
 exec_always "$TERMINAL_NOQUOTE -name files -e ranger"

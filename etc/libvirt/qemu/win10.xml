@@ -71,6 +71,12 @@ or other application using the libvirt API.
       <boot order='1'/>
       <address type='drive' controller='0' bus='0' target='0' unit='0'/>
     </disk>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2'/>
+      <source file='/media/VM/win10hdd.qcow2'/>
+      <target dev='sdb' bus='sata'/>
+      <address type='drive' controller='0' bus='0' target='0' unit='1'/>
+    </disk>
     <controller type='usb' index='0' model='qemu-xhci' ports='15'>
       <address type='pci' domain='0x0000' bus='0x03' slot='0x00' function='0x0'/>
     </controller>
@@ -140,6 +146,13 @@ or other application using the libvirt API.
         <address domain='0x0000' bus='0x2e' slot='0x00' function='0x1'/>
       </source>
       <address type='pci' domain='0x0000' bus='0x05' slot='0x00' function='0x0'/>
+    </hostdev>
+    <hostdev mode='subsystem' type='usb' managed='yes'>
+      <source>
+        <vendor id='0x17cc'/>
+        <product id='0x0808'/>
+      </source>
+      <address type='usb' bus='0' port='1'/>
     </hostdev>
     <memballoon model='virtio'>
       <address type='pci' domain='0x0000' bus='0x06' slot='0x00' function='0x0'/>
