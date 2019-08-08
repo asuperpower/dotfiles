@@ -24,7 +24,7 @@ gaps inner 20
 gaps outer 15
 
 # Launch Compositor
-exec compton --config /home/asuperpower/.config/compton.conf
+exec compton --blur-background --config /home/asuperpower/.config/compton.conf
 
 # Launch spotify listener for polybar
 exec ~/.scripts/spotify/launchlistener.sh
