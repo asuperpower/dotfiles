@@ -43,6 +43,10 @@ alias rm='rm -i -v'
 alias cp='cp -v'
 alias chx='chmod +x'
 
+# docker
+alias dock="sudo docker"
+alias dockc="sudo docker container"
+
 # function to mkdir and cd to it
 mcd()
 {
@@ -63,6 +67,14 @@ aur()
 py()
 {	
 	pip install --user "$1"
+}
+
+# function to start win10 vm
+win10()
+{
+	cd /etc/libvirt/qemu
+	sudo virsh start win10
+	cd ~/
 }
 
 # reload xresources
