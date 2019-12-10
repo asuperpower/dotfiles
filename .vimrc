@@ -1,7 +1,7 @@
 let g:powerline_pycmd="py3"
 set laststatus=2 " Always display the statusline in all windows
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-
+set number
 
 call plug#begin('~/.vim/plugged')
 
@@ -30,6 +30,9 @@ call plug#begin('~/.vim/plugged')
 
 " Using plug for wal compatibility (colour theme switching)
 Plug 'dylanaraps/wal.vim'
+
+" Get rust syntax highlighting etc.
+Plug 'rust-lang/rust.vim'
 
 " Using youcompleteme (autocompletion)
 Plug 'Valloric/YouCompleteMe'

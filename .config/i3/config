@@ -7,7 +7,7 @@ set $mod Mod4
 set $TERMINAL 	"urxvt"
 set $TERMINAL_NOQUOTE	urxvt
 set $HOME	/home/asuperpower/
-set $TRANSPARENCY 	70
+set $TRANSPARENCY 	50
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -54,6 +54,8 @@ bindsym $mod+Control+l "exec i3lock"
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec rofi -show run
+bindsym $mod+shift+d exec rofi -show find -modi find:~/.local/share/rofi/finder.sh
+bindsym $mod+t exec rofi -show emoji -modi emoji
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -262,7 +264,7 @@ bindsym $mod+Shift+F12 exec "urxvt -e sudo virsh start win10"
 
 ### Extra Stuff ###
 # Print Screen
-bindsym $mod+Print exec "maim -u -s | xclip -selection clipboard -t image/png"
+bindsym $mod+Print exec "maim -u -s -o | xclip -selection clipboard -t image/png"
 bindsym $mod+Shift+Print exec "maim | xclip -selection clipboard -t image/png"
 
 #Spotify/Others
