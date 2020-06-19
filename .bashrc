@@ -5,8 +5,8 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# For private bashrc
-source .bashrc_private
+source ~/.bashrc_private
+source /usr/share/git/completion/git-completion.bash
 
 # alias'
 alias ls='ls --color=auto'
@@ -19,6 +19,8 @@ alias sudotfiles='sudo /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=/'
 alias gc='git clone'
 #alias aur='git clone'
 alias .aur='cd ~/.aur'
+#swallow
+alias fork='setsid -f'
 
 # alias from paulirish dotfiles
 # Easier navigation: .., ..., ~ and -
@@ -77,6 +79,14 @@ win10()
 	cd ~/
 }
 
+# function to use work git
+jc()
+{
+	cd ~/code/work
+	git clone jc://"$1" &&
+	cd -P -- "$1"
+}
+
 # reload xresources
 alias xr='xrdb ~/.Xresources'
 
@@ -90,6 +100,9 @@ cat ~/.cache/wal/sequences
 
 # To add support for TTYs this line can be optionally added.
 source ~/.cache/wal/colors-tty.sh
+
+# nodejs nvm
+source /usr/share/nvm/init-nvm.sh
 
 PS1='[\u@\h \W]\$ '
 powerline-daemon -q
