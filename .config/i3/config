@@ -24,12 +24,14 @@ gaps inner 20
 gaps outer 15
 
 # Launch Compositor
-exec compton --blur-background --config /home/asuperpower/.config/compton.conf
+## Compton replaced by fork called picom
+#exec compton --blur-background --config /home/asuperpower/.config/compton.conf
+exec_always picom --blur-background --experimental-backends --config /home/asuperpower/.config/picom.conf
 
 # Launch spotify listener for polybar
 exec ~/.scripts/spotify/launchlistener.sh
 
-exec_always ~/.screenlayout/desktop1-amdgpu.sh
+exec_always ~/.screenlayout/desktop1-amdgpu-144.sh
 
 # Launch other applications
 exec --no-startup-id i3-msg 'workspace 1; exec /usr/bin/firefox'
@@ -257,7 +259,7 @@ mode "move" {
 bindsym $mod+r mode "resize"
 
 # VM Bind
-bindsym $mod+Shift+F12 exec "urxvt -e sudo virsh start win10"
+bindsym $mod+Shift+F12 exec "urxvt -e sudo virsh start win10 && looking-glass-client -s -S -F"
 
 ### Extra Stuff ###
 # Print Screen
