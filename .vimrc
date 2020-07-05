@@ -2,6 +2,9 @@ let g:powerline_pycmd="py3"
 set laststatus=2 " Always display the statusline in all windows
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 set number
+set expandtab
+set tabstop=2
+set shiftwidth=2
 
 call plug#begin('~/.vim/plugged')
 
