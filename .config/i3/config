@@ -23,11 +23,6 @@ for_window [class="^.*"] border pixel 0
 gaps inner 20
 gaps outer 15
 
-# Launch Compositor
-## Compton replaced by fork called picom
-#exec compton --blur-background --config /home/asuperpower/.config/compton.conf
-exec_always picom --blur-background --experimental-backends --config /home/asuperpower/.config/picom.conf
-
 # Launch spotify listener for polybar
 exec ~/.scripts/spotify/launchlistener.sh
 
@@ -260,6 +255,9 @@ bindsym $mod+r mode "resize"
 
 # VM Bind
 bindsym $mod+Shift+F12 exec "urxvt -e sudo virsh start win10 && looking-glass-client -s -S -F"
+bindsym $mod+Control+Shift+F12 exec "killall looking-glass-client && sleep 2 && exec looking-glass-client -s -S -F"
+# VM to secondary monitor
+for_window [class="looking-glass-client"] move container to workspace $ws11
 
 ### Extra Stuff ###
 # Print Screen
@@ -286,7 +284,8 @@ for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Require
 for_window [title="^Steam Keyboard$"]				floating enable
 
 # Execute wal desktop wallpaper & colour theme creator
-exec_always --no-startup-id wal -a $TRANSPARENCY -i /home/asuperpower/Pictures/Wallpaper/
+# exec_always --no-startup-id wal -a $TRANSPARENCY -i /home/asuperpower/Pictures/Wallpaper/
+exec_always --no-startup-id wpg --alpha $TRANSPARENCY -s /home/asuperpower/Pictures/Wallpaper/
 
 #Audio Manager
 for_window [class="^Pavucontrol$"] floating enable
@@ -320,9 +319,16 @@ for_window [instance="files"] move scratchpad
 bindsym $mod+Tab [instance="files"] scratchpad show; [instance="files"] move position center
 
 # Workspace fixes
-for_window [class="discord"] move container to workspace 5
-for_window [class="Spotify"] move container to workspace 3
-for_window [class="Firefox"] move container to workspace 1
-for_window [class="^Steam$"] move container to workspace 6
-for_window [class="Dota 2"] move container to workspace 7
+for_window [class="discord"] move container to $ws5
+for_window [class="Spotify"] move container to $ws3
+for_window [class="Firefox"] move container to $ws1
+for_window [class="^Steam$"] move container to $ws6
+for_window [class="Dota 2"] move container to $ws7
+
+# Launch Compositor
+## Compton replaced by fork called picom
+## Moved to bottom of file because calling it to early meant that it sometimes failed due to already being an open process
+#exec compton --blur-background --config /home/asuperpower/.config/compton.conf
+exec_always picom --blur-background --experimental-backends --config /home/asuperpower/.config/picom.conf
+bindsym $mod+shift+alt+r exec picom --blur-background --experimental-backends --config /home/asuperpower/.config/picom.conf
 

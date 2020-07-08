@@ -1,10 +1,21 @@
 let g:powerline_pycmd="py3"
+
+filetype plugin indent on
+
+set t_Co=256
+set ttyfast
+" set cursorline
+set nocompatible
+set scrolloff=10
 set laststatus=2 " Always display the statusline in all windows
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 set number
 set expandtab
 set tabstop=2
 set shiftwidth=2
+
+" Allows writing to files with root priviledges
+cmap w!! w !sudo tee % > /dev/null
 
 call plug#begin('~/.vim/plugged')
 
