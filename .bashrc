@@ -87,9 +87,6 @@ jc()
 	cd -P -- "$1"
 }
 
-# reload xresources
-alias xr='xrdb ~/.Xresources'
-
 # Import colorscheme from 'wal' asynchronously
 # &   # Run the process in the background.
 # ( ) # Hide shell job control messages.

@@ -101,7 +101,8 @@ cursor-click = pointer
 cursor-scroll = ns-resize
 
 [bar/bottom_secondary]
-monitor = HDMI-A-0
+#monitor = HDMI-A-0
+monitor = DVI-I-0
 bottom=true
 enable-ipc = true
 ;monitor = ${env:MONITOR:HDMI-0}
@@ -211,9 +212,12 @@ cursor-scroll = ns-resize
 type = custom/script
 interval = 1
 format-prefix = " "
+format-prefix-foreground = ${xrdb:color7:#222}
 format = <label>
+# format-offset = -2
 exec = python ~/.scripts/spotify/spotify_status.py -f '{artist}: {song}'
-format-underline = #1db954
+# format-underline = ${xrdb:color7:#222}
+;#1db954
 
 [module/xwindow]
 type = internal/xwindow

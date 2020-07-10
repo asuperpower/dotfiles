@@ -23,6 +23,11 @@ for_window [class="^.*"] border pixel 0
 gaps inner 20
 gaps outer 15
 
+# Execute wal desktop wallpaper & colour theme creator
+exec_always --no-startup-id wal -a $TRANSPARENCY -i /home/asuperpower/Pictures/Wallpaper/
+# exec_always --no-startup-id wpg --alpha $TRANSPARENCY -s /home/asuperpower/Pictures/Wallpaper/
+# exec_always sleep 2
+
 # Launch spotify listener for polybar
 exec ~/.scripts/spotify/launchlistener.sh
 
@@ -37,19 +42,15 @@ exec --no-startup-id i3-msg 'workspace 4; exec urxvt -e cmus'
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# start a terminal
 bindsym $mod+Return exec $TERMINAL
-
 # kill focused window
 bindsym $mod+Shift+q kill
-
-#Lock workspace
 bindsym $mod+Control+l "exec i3lock"
-
-# start dmenu (a program launcher)
 bindsym $mod+d exec rofi -show run
 bindsym $mod+shift+d exec rofi -show find -modi find:~/.local/share/rofi/finder.sh
 bindsym $mod+t exec rofi -show emoji -modi emoji
+bindsym $mod+KP_Add exec picom-trans -c +10
+bindsym $mod+KP_Subtract exec picom-trans -c -10
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -177,7 +178,9 @@ bindsym $mod+grave move workspace to output right
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+# bindsym $mod+Shift+r restart
+# better restart (allows you  to run other stuff)
+bindsym $mod+Shift+r exec /home/asuperpower/.scripts/reloadwm.sh
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
@@ -263,6 +266,7 @@ for_window [class="looking-glass-client"] move container to workspace $ws11
 # Print Screen
 bindsym $mod+Print exec "maim -u -s -o | xclip -selection clipboard -t image/png"
 bindsym $mod+Shift+Print exec "maim | xclip -selection clipboard -t image/png"
+# bindsym $mod+Control+Print exec "$ maim -i $(xdotool getactivewindow) ~/screen.jpg"
 
 #Spotify/Others
 bindsym $mod+F5 exec "playerctl previous"
@@ -282,10 +286,6 @@ for_window [class="^Steam$" title="^Steam - Self Updater$"]	floating enable
 for_window [class="^Steam$" title="^Screenshot Uploader$"]	floating enable
 for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable
 for_window [title="^Steam Keyboard$"]				floating enable
-
-# Execute wal desktop wallpaper & colour theme creator
-# exec_always --no-startup-id wal -a $TRANSPARENCY -i /home/asuperpower/Pictures/Wallpaper/
-exec_always --no-startup-id wpg --alpha $TRANSPARENCY -s /home/asuperpower/Pictures/Wallpaper/
 
 #Audio Manager
 for_window [class="^Pavucontrol$"] floating enable
@@ -329,6 +329,6 @@ for_window [class="Dota 2"] move container to $ws7
 ## Compton replaced by fork called picom
 ## Moved to bottom of file because calling it to early meant that it sometimes failed due to already being an open process
 #exec compton --blur-background --config /home/asuperpower/.config/compton.conf
-exec_always picom --blur-background --experimental-backends --config /home/asuperpower/.config/picom.conf
-bindsym $mod+shift+alt+r exec picom --blur-background --experimental-backends --config /home/asuperpower/.config/picom.conf
+# exec loadcompositor
+bindsym $mod+Shift+Control+R exec picom --blur-background --experimental-backends --config /home/asuperpower/.config/picom.conf
 
