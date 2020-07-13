@@ -2,7 +2,7 @@
 
 loadcompositor()
 {
-  setsid -f picom --blur-background --experimental-backends --config /home/asuperpower/.config/picom.conf
+  setsid -f picom --experimental-backends --config /home/asuperpower/.config/picom.conf
 }
 
 loadcompositor

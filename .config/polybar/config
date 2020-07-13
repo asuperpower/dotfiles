@@ -80,7 +80,8 @@ font- 8= DejaVu:size=8;1
 modules-left = i3
 ;modules-center = spotify previous playpause next
 modules-center = spotify
-modules-right = filesystem  cpu-multi2 memory  cpu-temperature gpu1-temperature gpu2-temperature date
+# modules-right = filesystem  cpu-multi2 memory  cpu-temperature gpu1-temperature gpu2-temperature date
+modules-right = filesystem  cpu-multi2 memory date
 tray-position = right
 tray-padding = 2
 ;tray-transparent = true
