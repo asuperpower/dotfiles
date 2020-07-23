@@ -84,7 +84,16 @@ jc()
 {
 	cd ~/code/work
 	git clone jc://"$1" &&
-	cd -P -- "$1"
+	cd -P -- "$1" &&
+  test -f .gitmodules &&
+  (
+    read -p "Initialize Submodules? (Y/n) " choice
+    case "$choice" in 
+      y|Y ) git submodule update --init --recursive;echo "Done!";;
+      n|N ) echo "Done!";;
+      * ) echo "invalid";;
+    esac
+  ) || echo "Done!"
 }
 
 # Import colorscheme from 'wal' asynchronously
