@@ -5,8 +5,8 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-source ~/.bashrc_private
-source /usr/share/git/completion/git-completion.bash
+[[ -f ~/.bashrc_private ]] && source ~/.bashrc_private
+[[ -f /usr/share/git/completion/git-completion.bash ]] && source /usr/share/git/completion/git-completion.bash
 
 # alias'
 alias ls='ls --color=auto'
@@ -16,7 +16,7 @@ alias lyrics='clyrics'
 #dotfiles git sync alias
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias sudotfiles='sudo /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=/'
-alias gc='git clone'
+alias gc='git clone' 
 #alias aur='git clone'
 alias .aur='cd ~/.aur'
 #swallow
@@ -83,17 +83,9 @@ win10()
 jc()
 {
 	cd ~/code/work
-	git clone jc://"$1" &&
+	git clone --recurse-submodules jc://"$1" &&
 	cd -P -- "$1" &&
-  test -f .gitmodules &&
-  (
-    read -p "Initialize Submodules? (Y/n) " choice
-    case "$choice" in 
-      y|Y ) git submodule update --init --recursive;echo "Done!";;
-      n|N ) echo "Done!";;
-      * ) echo "invalid";;
-    esac
-  ) || echo "Done!"
+  echo "Done!"
 }
 
 # Import colorscheme from 'wal' asynchronously
@@ -105,10 +97,10 @@ jc()
 cat ~/.cache/wal/sequences
 
 # To add support for TTYs this line can be optionally added.
-source ~/.cache/wal/colors-tty.sh
+[[ -f ~/.cache/wal/colors-tty.sh ]] && source ~/.cache/wal/colors-tty.sh
 
 # nodejs nvm
-source /usr/share/nvm/init-nvm.sh
+[[ -f /usr/share/nvm/init-nvm.sh ]] && source /usr/share/nvm/init-nvm.sh
 
 PS1='[\u@\h \W]\$ '
 powerline-daemon -q
@@ -116,4 +108,4 @@ POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
 . /usr/share/powerline/bindings/bash/powerline.sh
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[[ -f ~/.fzf.bash ]] && source ~/.fzf.bash

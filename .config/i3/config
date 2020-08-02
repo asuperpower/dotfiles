@@ -2,12 +2,14 @@
 
 set $mod Mod4
 
-set $TERMINAL 	      "urxvt"
-set $TERMINAL_NOQUOTE	urxvt
-set $HOME	            /home/asuperpower/
-set $TRANSPARENCY 	  70
-set $MONITOR1         DisplayPort-1
-set $MONITOR2         DVI-I-0
+set $TERMINAL 	        "kitty"
+# set $TERMINAL 	      "urxvt"
+set $TERMINAL_NOQUOTE	  kitty
+set $TERMINAL_NOQUOTE_E urxvt
+set $HOME	              /home/asuperpower/
+set $TRANSPARENCY 	    70
+set $MONITOR1           DisplayPort-1
+set $MONITOR2           HDMI-A-0# DVI-I-0
 
 font pango:Cantarell Light 9
 
@@ -63,14 +65,9 @@ bindsym $mod+Control+l "exec i3lock"
 bindsym $mod+d exec rofi -show run
 bindsym $mod+shift+d exec rofi -show find -modi find:~/.local/share/rofi/finder.sh
 bindsym $mod+t exec rofi -show emoji -modi emoji
-# bindsym $mod+KP_Add exec picom-trans -c +10
-# bindsym $mod+KP_Subtract exec picom-trans -c -10
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-
-# reload the configuration file
+### bindsym $mod+KP_Add exec picom-trans -c +10
+### bindsym $mod+KP_Subtract exec picom-trans -c -10
+## reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 # bindsym $mod+Shift+r restart
@@ -78,7 +75,21 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r exec /home/asuperpower/.scripts/reloadwm.sh
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+# VM Bind
+bindsym $mod+Shift+F12 exec "$TERMINAL_NOQUOTE_E -e sudo virsh start win10 && looking-glass-client -s -S -F"
+bindsym $mod+Control+Shift+F12 exec "killall looking-glass-client && sleep 2 && exec looking-glass-client -s -S -F"
+### Extra Stuff ###
+# Print Screen
+bindsym $mod+Print exec "maim -u -s -o | xclip -selection clipboard -t image/png"
+bindsym $mod+Shift+Print exec "maim | xclip -selection clipboard -t image/png"
+# bindsym $mod+Control+Print exec "$ maim -i $(xdotool getactivewindow) ~/screen.jpg"
 
+#Spotify/Others
+bindsym $mod+F5 exec "playerctl previous"
+bindsym $mod+F6 exec "playerctl play-pause"
+bindsym $mod+F7 exec "playerctl next"
+bindsym --whole-window --border $mod+button4 exec "playerctl volume +0.1"
+bindsym --whole-window --border $mod+button5 exec "playerctl volume -0.1"
 
 ## Set Workspace up
 # Define names for default workspaces for which we configure key bindings later on.
@@ -154,12 +165,16 @@ gaps outer 15
 
 # Execs
 ## Screen Layout
-exec_always ~/.screenlayout/desktop1-amdgpu-144.sh
+exec_always ~/.screenlayout/desktop1-amdgpu-no144.sh
+## icc profile monitor load
+exec --no-startup-id xiccd
 ## Execute wal desktop wallpaper & colour theme creator
 exec_always --no-startup-id wal -a $TRANSPARENCY -i /home/asuperpower/Pictures/Wallpaper/
 ### exec_always --no-startup-id wpg --alpha $TRANSPARENCY -s /home/asuperpower/Pictures/Wallpaper/
 ## Launch spotify listener for polybar
 exec ~/.scripts/spotify/launchlistener.sh
+## Set xrdb before we launch magic windows 
+# exec_always xrdb /home/asuperpower/.Xresources # breaks transparency with those windows
 
 # Launch other applications
 exec --no-startup-id i3-msg 'workspace 1; exec /usr/bin/firefox-developer-edition'
@@ -239,25 +254,6 @@ mode "move" {
 
 bindsym $mod+r mode "resize"
 
-# VM Bind
-bindsym $mod+Shift+F12 exec "urxvt -e sudo virsh start win10 && looking-glass-client -s -S -F"
-bindsym $mod+Control+Shift+F12 exec "killall looking-glass-client && sleep 2 && exec looking-glass-client -s -S -F"
-# VM to secondary monitor
-for_window [class="looking-glass-client"] move container to workspace $ws11
-
-### Extra Stuff ###
-# Print Screen
-bindsym $mod+Print exec "maim -u -s -o | xclip -selection clipboard -t image/png"
-bindsym $mod+Shift+Print exec "maim | xclip -selection clipboard -t image/png"
-# bindsym $mod+Control+Print exec "$ maim -i $(xdotool getactivewindow) ~/screen.jpg"
-
-#Spotify/Others
-bindsym $mod+F5 exec "playerctl previous"
-bindsym $mod+F6 exec "playerctl play-pause"
-bindsym $mod+F7 exec "playerctl next"
-bindsym --whole-window --border $mod+button4 exec "playerctl volume +0.1"
-bindsym --whole-window --border $mod+button5 exec "playerctl volume -0.1"
-
 #Steam Support
 #for_window [class="^Steam$" title="^Friends$"]			floating enable
 for_window [class="^Steam$" title="Steam - News"]		floating enable
@@ -272,37 +268,15 @@ for_window [title="^Steam Keyboard$"]				floating enable
 
 #Audio Manager
 for_window [class="^Pavucontrol$"] floating enable
-
 # Spotify
 for_window [class="Spotify"] move to workspace $ws3
+# VM to secondary monitor
+for_window [class="looking-glass-client"] move container to workspace $ws11
+
 
 #Ranger floating
 #for_window [instance="^float$" class="(?i)urxvt"] floating enable, move scratchpad, sticky enable, move absolute position 1434px 800px
 #bindsym $mod+shift+x [instance="^float$" class="(?i)urxvt"] exec urxvt -name float -e ranger
-
-# Scratchpad terminal for calculations (python)
-exec_always "$TERMINAL_NOQUOTE -name calc -e python"
-for_window [instance="calc"] floating enable
-for_window [instance="calc"] resize set 800 600
-for_window [instance="calc"] move scratchpad
-
-bindsym $mod+shift+Tab [instance="calc"] scratchpad show; [instance="calc"] move position center
-
-# Scratchpad for audio mixer
-#exec_always "$TERMINAL_NOQUOTE -name audio -e python"
-#for_window [instance="audio"] floating enable
-#for_window [instance="audio"] resize set 800 600
-#for_window [instance="audio"] move scratchpad
-#bindsym $mod+shift+Tab [instance="audio"] scratchpad show; [instance="audio"] move position center
-
-
-# Scratchpad terminal for file browsing (ranger)
-exec_always "$TERMINAL_NOQUOTE -name files -e ranger"
-for_window [instance="files"] floating enable
-for_window [instance="files"] resize set 800 600
-for_window [instance="files"] move scratchpad
-
-bindsym $mod+Tab [instance="files"] scratchpad show; [instance="files"] move position center
 
 # Workspace fixes
 for_window [class="discord"] move container to workspace $ws5
@@ -313,6 +287,7 @@ for_window [class="Dota 2"] move container to workspace $ws7
 
 # spotify gaps
 workspace $ws3 gaps outer 60
+workspace $ws3 gaps inner 90
 
 # Launch Compositor
 ## Compton replaced by fork called picom
@@ -321,3 +296,24 @@ workspace $ws3 gaps outer 60
 # exec loadcompositor
 bindsym $mod+Shift+Control+R exec picom --blur-background --experimental-backends --config /home/asuperpower/.config/picom.conf
 exec --no-startup-id /home/asuperpower/.scripts/loadcompositor.sh
+# sleep 1
+# exec_always xrdb /home/asuperpower/.Xresources
+# Scratchpads
+## Scratchpad terminal for calculations (python)
+  exec_always "$TERMINAL_NOQUOTE_E -name calc -e python"
+  for_window [instance="calc"] floating enable
+  for_window [instance="calc"] resize set 800 600
+  for_window [instance="calc"] move scratchpad
+  bindsym $mod+shift+Tab [instance="calc"] scratchpad show; [instance="calc"] move position center
+## Scratchpad for audio mixer
+  #exec_always "$TERMINAL_NOQUOTE -name audio -e python"
+  #for_window [instance="audio"] floating enable
+  #for_window [instance="audio"] resize set 800 600
+  #for_window [instance="audio"] move scratchpad
+  #bindsym $mod+shift+Tab [instance="audio"] scratchpad show; [instance="audio"] move position center
+## Scratchpad terminal for file browsing (ranger)
+  exec_always "$TERMINAL_NOQUOTE_E -name files -e ranger"
+  for_window [instance="files"] floating enable
+  for_window [instance="files"] resize set 800 600
+  for_window [instance="files"] move scratchpad
+bindsym $mod+Tab [instance="files"] scratchpad show; [instance="files"] move position center
