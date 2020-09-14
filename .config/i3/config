@@ -7,7 +7,7 @@ set $TERMINAL 	        "kitty"
 set $TERMINAL_NOQUOTE	  kitty
 set $TERMINAL_NOQUOTE_E urxvt
 set $HOME	              /home/asuperpower/
-set $TRANSPARENCY 	    70
+set $TRANSPARENCY 	    60
 set $MONITOR1           DisplayPort-1
 set $MONITOR2           HDMI-A-0# DVI-I-0
 
@@ -167,7 +167,7 @@ gaps outer 15
 ## Screen Layout
 exec_always ~/.screenlayout/desktop1-amdgpu-no144.sh
 ## icc profile monitor load
-exec --no-startup-id xiccd
+# exec --no-startup-id xiccd
 ## Execute wal desktop wallpaper & colour theme creator
 exec_always --no-startup-id wal -a $TRANSPARENCY -i /home/asuperpower/Pictures/Wallpaper/
 ### exec_always --no-startup-id wpg --alpha $TRANSPARENCY -s /home/asuperpower/Pictures/Wallpaper/
@@ -279,11 +279,11 @@ for_window [class="looking-glass-client"] move container to workspace $ws11
 #bindsym $mod+shift+x [instance="^float$" class="(?i)urxvt"] exec urxvt -name float -e ranger
 
 # Workspace fixes
-for_window [class="discord"] move container to workspace $ws5
+#for_window [class="discord"] move container to workspace $ws5
 for_window [class="Spotify"] move container to workspace $ws3
 for_window [class="Firefox"] move container to workspace $ws1
-for_window [class="^Steam$"] move container to workspace $ws6
-for_window [class="Dota 2"] move container to workspace $ws7
+#for_window [class="^Steam$"] move container to workspace $ws6
+#for_window [class="Dota 2"] move container to workspace $ws7
 
 # spotify gaps
 workspace $ws3 gaps outer 60
@@ -306,7 +306,7 @@ exec --no-startup-id /home/asuperpower/.scripts/loadcompositor.sh
   for_window [instance="calc"] move scratchpad
   bindsym $mod+shift+Tab [instance="calc"] scratchpad show; [instance="calc"] move position center
 ## Scratchpad for audio mixer
-  #exec_always "$TERMINAL_NOQUOTE -name audio -e python"
+  #exec_always "$TERMINAL_NOQUOTE_E -name audio -e python"
   #for_window [instance="audio"] floating enable
   #for_window [instance="audio"] resize set 800 600
   #for_window [instance="audio"] move scratchpad
@@ -317,3 +317,7 @@ exec --no-startup-id /home/asuperpower/.scripts/loadcompositor.sh
   for_window [instance="files"] resize set 800 600
   for_window [instance="files"] move scratchpad
 bindsym $mod+Tab [instance="files"] scratchpad show; [instance="files"] move position center
+
+# start wifi
+exec rm -rf /tmp/create_ap*
+exec /home/asuperpower/.scripts/openap.sh

@@ -65,23 +65,21 @@ module-margin-right = 2
 
 ;general
 font-0 = DejaVuSans:pixelsize=10;1
-font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = siji:pixelsize=10;1
+font-1 = "Noto Color Emoji:pixelsize=10:style=Regular:scale=10;2"
+font-2 = unifont:fontformat=truetype:size=10:antialias=false;0
+font-3 = siji:pixelsize=10;1
 ;fontAwesome
-font-3 = Font Awesome5Free:pixelsize=10;3
-font-4 = Font Awesome5Free Solid:pixelsize=10;3
-font-5 = Font Awesome5Brands:pixelsize=10;3
-font-6 = FontAwesome:pixelsize = 9
+font-4 = Font Awesome5Free:pixelsize=10;3
+font-5 = Font Awesome5Free Solid:pixelsize=10;3
+font-6 = Font Awesome5Brands:pixelsize=10;3
+font-7 = FontAwesome:pixelsize = 9
 ;other
-font- 7= DejaVu:size=8;1
 font- 8= DejaVu:size=8;1
+font- 9= DejaVu:size=8;1
 
-;modules-left = bspwm i3
 modules-left = i3
-;modules-center = spotify previous playpause next
 modules-center = spotify
-# modules-right = filesystem  cpu-multi2 memory  cpu-temperature gpu1-temperature gpu2-temperature date
-modules-right = filesystem  cpu-multi2 memory date
+modules-right =  corona filesystem cpu-multi2 memory date  
 tray-position = right
 tray-padding = 2
 ;tray-transparent = true
@@ -102,8 +100,8 @@ cursor-click = pointer
 cursor-scroll = ns-resize
 
 [bar/bottom_secondary]
-#monitor = HDMI-A-0
-monitor = DVI-I-0
+monitor = HDMI-A-0
+;monitor = DVI-I-0
 bottom=true
 enable-ipc = true
 ;monitor = ${env:MONITOR:HDMI-0}
@@ -143,7 +141,7 @@ font- 8= DejaVu:size=8;1
 
 modules-left = i3
 ;modules-center = spotify previous playpause next
-modules-center = spotify
+;modules-center = spotify
 modules-right = date
 tray-position = right
 tray-padding = 2
@@ -279,20 +277,23 @@ pin-workspaces = true
 ; Separator in between workspaces
 ; label-separator = |
 fuzzy-match = true
-ws-icon-0 = 1;
-ws-icon-1 = 2;
-ws-icon-2 = 3;
-ws-icon-3 = 4;
-ws-icon-4 = 5;
-ws-icon-5 = 6;
-ws-icon-6 = 6;
-ws-icon-8 = 8;
-ws-icon-9 = 9;
-ws-icon-10 = 10;
-ws-icon-10 = 11;
-ws-icon-10 = 11;
-ws-icon-10 = 11;
-ws-icon-10 = 11;
+ws-icon-0 = 1;1
+; 
+ws-icon-1 = 2;2
+; 
+ws-icon-2 = 3;3
+; 
+ws-icon-3 = 4;4
+ws-icon-4 = 5;5
+ws-icon-5 = 6;6
+ws-icon-6 = 6;7
+ws-icon-8 = 8;8
+ws-icon-9 = 9;9
+ws-icon-10 = 10;10
+ws-icon-11 = 11;11
+ws-icon-12 = 12;12
+ws-icon-13 = 13;13
+ws-icon-14 = 14;14
 ws-icon-default = 
 format = <label-state> <label-mode>
 index-sort = true
@@ -427,7 +428,7 @@ type = internal/memory
 
 ; Seconds to sleep between updates
 ; Default: 1
-interval = 3
+interval = 5
 
 ; Available tags:
 ;   <label> (default)
@@ -464,7 +465,7 @@ label = %gb_used%
 
 ; Only applies if <bar-used> is used
 bar-used-indicator =
-bar-used-width = 8
+bar-used-width = 12
 bar-used-foreground-0 = ${xrdb:color6:#222}
 bar-used-foreground-1 = ${xrdb:color6:#222}
 bar-used-foreground-2 = ${xrdb:color6:#222}
@@ -494,6 +495,14 @@ ramp-signal-2 = 
 ramp-signal-3 = 
 ramp-signal-4 = 
 ramp-signal-foreground = ${colors.foreground-alt}
+
+[module/corona]
+type = custom/script
+format = <label>
+label=%output%
+exec = ~/.scripts/covid.sh
+tail=false
+interval = 10
 
 [module/eth]
 type = internal/network
