@@ -90,6 +90,7 @@ bindsym $mod+F6 exec "playerctl play-pause"
 bindsym $mod+F7 exec "playerctl next"
 bindsym --whole-window --border $mod+button4 exec "playerctl volume +0.1"
 bindsym --whole-window --border $mod+button5 exec "playerctl volume -0.1"
+bindsym $mod+End exec i3-msg open
 
 ## Set Workspace up
 # Define names for default workspaces for which we configure key bindings later on.
@@ -111,15 +112,15 @@ set $ws14 "14"
 
 # Define windows for workspaces
 workspace $ws1 output $MONITOR1
-workspace $ws2 output $MONITOR1
+workspace $ws2 output $MONITOR2
 workspace $ws3 output $MONITOR1
-workspace $ws4 output $MONITOR1
+workspace $ws4 output $MONITOR2
 workspace $ws5 output $MONITOR1
-workspace $ws6 output $MONITOR1
+workspace $ws6 output $MONITOR2
 workspace $ws7 output $MONITOR1
-workspace $ws8 output $MONITOR1
+workspace $ws8 output $MONITOR2
 workspace $ws9 output $MONITOR1
-workspace $ws10 output $MONITOR1
+workspace $ws10 output $MONITOR2
 workspace $ws11 output $MONITOR2
 workspace $ws12 output $MONITOR2
 workspace $ws13 output $MONITOR2
@@ -272,7 +273,8 @@ for_window [class="^Pavucontrol$"] floating enable
 for_window [class="Spotify"] move to workspace $ws3
 # VM to secondary monitor
 for_window [class="looking-glass-client"] move container to workspace $ws11
-
+# M$$$ teams
+for_window [title="Microsoft Teams Notification"] floating enable
 
 #Ranger floating
 #for_window [instance="^float$" class="(?i)urxvt"] floating enable, move scratchpad, sticky enable, move absolute position 1434px 800px

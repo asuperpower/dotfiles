@@ -21,6 +21,11 @@ alias gc='git clone'
 alias .aur='cd ~/.aur'
 #swallow
 alias fork='setsid -f'
+alias weather='curl wttr.in'
+alias work='source ~/.scripts/work.sh'
+alias wifi='sudo ~/.scripts/openap.sh'
+alias rss='newsboat'
+alias core='corefreq-cli'
 
 # alias from paulirish dotfiles
 # Easier navigation: .., ..., ~ and -
@@ -48,6 +53,12 @@ alias chx='chmod +x'
 # docker
 alias dock="sudo docker"
 alias dockc="sudo docker container"
+
+alias info="pacman -Qi "
+
+#export
+#c#
+export DOTNET_ROOT=/opt/dotnet
 
 # function to mkdir and cd to it
 mcd()
