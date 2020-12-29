@@ -17,6 +17,7 @@ alias lyrics='clyrics'
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias sudotfiles='sudo /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=/'
 alias gc='git clone' 
+#alias gd='git diff --color=always | more' #useless
 #alias aur='git clone'
 alias .aur='cd ~/.aur'
 #swallow
@@ -26,6 +27,7 @@ alias work='source ~/.scripts/work.sh'
 alias wifi='sudo ~/.scripts/openap.sh'
 alias rss='newsboat'
 alias core='corefreq-cli'
+alias new='(setsid kitty </dev/null &>/dev/null &)'
 
 # alias from paulirish dotfiles
 # Easier navigation: .., ..., ~ and -
@@ -97,6 +99,18 @@ jc()
 	git clone --recurse-submodules jc://"$1" &&
 	cd -P -- "$1" &&
   echo "Done!"
+}
+
+decimal()
+{
+  short="${1:0:2}"
+  [[ "$short" == "0x" ]] && echo $(("$1")) ||
+  echo $((0x"$1"))
+}
+
+hex()
+{
+  printf '%x\n' "$1"
 }
 
 # Import colorscheme from 'wal' asynchronously
