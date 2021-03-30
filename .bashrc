@@ -28,6 +28,7 @@ alias wifi='sudo ~/.scripts/openap.sh'
 alias rss='newsboat'
 alias core='corefreq-cli'
 alias new='(setsid kitty </dev/null &>/dev/null &)'
+alias gcmsg='gitmoji -c'
 
 # alias from paulirish dotfiles
 # Easier navigation: .., ..., ~ and -
@@ -57,6 +58,16 @@ alias dock="sudo docker"
 alias dockc="sudo docker container"
 
 alias info="pacman -Qi "
+
+# kubernetes
+source <(kubectl completion bash)
+alias k=kubectl
+complete -F __start_kubectl k
+
+kc()
+{
+  kubectl config use-context $1 || kubectl config get-contexts
+}
 
 #export
 #c#
@@ -96,7 +107,7 @@ win10()
 jc()
 {
 	cd ~/code/work
-	git clone --recurse-submodules jc://"$1" &&
+	git clone jc://"$1" &&
 	cd -P -- "$1" &&
   echo "Done!"
 }

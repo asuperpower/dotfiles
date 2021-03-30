@@ -20,10 +20,10 @@ font pango:Cantarell Light 9
   bindsym $mod+k focus up
   bindsym $mod+l focus right
 ## alternatively, you can use the cursor keys:
-  bindsym $mod+Left focus left
-  bindsym $mod+Down focus down
-  bindsym $mod+Up focus up
-  bindsym $mod+Right focus right
+  # bindsym $mod+Left focus left
+  # bindsym $mod+Down focus down
+  # bindsym $mod+Up focus up
+  # bindsym $mod+Right focus right
 ## move focused window
   bindsym $mod+Shift+h move left
   bindsym $mod+Shift+j move down
@@ -41,7 +41,7 @@ font pango:Cantarell Light 9
 ## enter fullscreen mode for the focused container
   bindsym $mod+f fullscreen toggle
 ## change container layout (stacked, tabbed, toggle split)
-  bindsym $mod+s layout stacking
+  # bindsym $mod+s layout stacking # never use stacking anyway
   bindsym $mod+w layout tabbed
   bindsym $mod+e layout toggle split
 ## toggle tiling / floating
@@ -85,9 +85,11 @@ bindsym $mod+Shift+Print exec "maim | xclip -selection clipboard -t image/png"
 # bindsym $mod+Control+Print exec "$ maim -i $(xdotool getactivewindow) ~/screen.jpg"
 
 #Spotify/Others
-bindsym $mod+F5 exec "playerctl previous"
-bindsym $mod+F6 exec "playerctl play-pause"
-bindsym $mod+F7 exec "playerctl next"
+bindsym $mod+F5 exec "playerctl --player=spotify previous"
+bindsym $mod+F6 exec "playerctl --player=spotify play-pause"
+bindsym $mod+F7 exec "playerctl --player=spotify next"
+# bindsym $mod+Up exec "playerctl volume 0.05+"
+# bindsym $mod+Down exec "playerctl volume 0.05-"
 bindsym --whole-window --border $mod+button4 exec "playerctl volume +0.1"
 bindsym --whole-window --border $mod+button5 exec "playerctl volume -0.1"
 bindsym $mod+End exec i3-msg open
@@ -166,7 +168,9 @@ gaps outer 15
 
 # Execs
 ## Screen Layout
-exec_always ~/.screenlayout/desktop1-amdgpu-no144.sh
+exec ~/.screenlayout/desktop1-amdgpu-no144.sh
+bindsym $mod+equal exec ~/.screenlayout/desktop1-amdgpu-no144.sh
+bindsym $mod+shift+equal exec ~/.screenlayout/desktop1-amdgpu-vertical.sh
 ## icc profile monitor load
 # exec --no-startup-id xiccd
 ## Execute wal desktop wallpaper & colour theme creator
@@ -179,7 +183,7 @@ exec ~/.scripts/spotify/launchlistener.sh
 
 # Launch other applications
 exec --no-startup-id i3-msg 'workspace 1; exec /usr/bin/firefox-developer-edition'
-exec --no-startup-id i3-msg 'workspace 3; exec /usr/bin/spotify'
+# exec --no-startup-id i3-msg 'workspace 3; exec /usr/bin/spotify'
 # exec --no-startup-id i3-msg 'workspace 4; exec urxvt -e cmus'
 
 
@@ -270,7 +274,7 @@ for_window [title="^Steam Keyboard$"]				floating enable
 #Audio Manager
 for_window [class="^Pavucontrol$"] floating enable
 # Spotify
-for_window [class="Spotify"] move to workspace $ws3
+# for_window [class="Spotify"] move to workspace $ws3
 # VM to secondary monitor
 for_window [class="looking-glass-client"] move container to workspace $ws11
 # M$$$ teams
@@ -282,14 +286,14 @@ for_window [title="Microsoft Teams Notification"] floating enable
 
 # Workspace fixes
 #for_window [class="discord"] move container to workspace $ws5
-for_window [class="Spotify"] move container to workspace $ws3
+# for_window [class="Spotify"] move container to workspace $ws3
 for_window [class="Firefox"] move container to workspace $ws1
 #for_window [class="^Steam$"] move container to workspace $ws6
 #for_window [class="Dota 2"] move container to workspace $ws7
 
 # spotify gaps
-workspace $ws3 gaps outer 60
-workspace $ws3 gaps inner 90
+# workspace $ws3 gaps outer 60
+# workspace $ws3 gaps inner 90
 
 # Launch Compositor
 ## Compton replaced by fork called picom
@@ -307,6 +311,12 @@ exec --no-startup-id /home/asuperpower/.scripts/loadcompositor.sh
   for_window [instance="calc"] resize set 800 600
   for_window [instance="calc"] move scratchpad
   bindsym $mod+shift+Tab [instance="calc"] scratchpad show; [instance="calc"] move position center
+## Scratchpad terminal for spotify
+  exec_always spotify
+  for_window [instance="spotify"] floating enable
+  for_window [instance="spotify"] resize set 1400 1400
+  for_window [instance="spotify"] move scratchpad
+  bindsym $mod+s [instance="spotify"] scratchpad show; [instance="spotify"] move position center
 ## Scratchpad for audio mixer
   #exec_always "$TERMINAL_NOQUOTE_E -name audio -e python"
   #for_window [instance="audio"] floating enable
